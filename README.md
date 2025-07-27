@@ -6,30 +6,73 @@ A self-hosted AI-powered platform to help cybersecurity instructors create and m
 
 ## 🚀 Getting Started
 
-1. **Clone the repo:**
+### 🛠 Requirements
+- Docker + Docker Compose (or Portainer)
+- Optional: Packer + Proxmox (for VM deployment)
 
-   ```bash
-   git clone https://github.com/YOURUSER/ForgeCTF.git
-   cd ForgeCTF
-   ```
+---
 
-2. **Start the stack:**
+### 🔧 1. Clone the repo
 
-   ```bash
-   docker-compose up -d
-   ```
+```bash
+git clone https://github.com/YOURUSER/ForgeCTF.git
+cd ForgeCTF
+```
 
-3. **(Optional) Download a model:**
+---
 
-   ```bash
-   bash setup/download-model.sh mistral
-   ```
+### 🌱 2. Set up your environment
 
-4. **Visit AnythingLLM:**
+ForgeCTF supports both **development** and **production** environments using `.env` files.
 
-   - Go to [http://localhost:3001](http://localhost:3001)
-   - Upload PDFs into the `data/` folder (already mounted)
-   - Chat with your lab documents!
+Start by creating a local dev `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` as needed for your local ports, etc.
+
+---
+
+### 🐳 3. Start the containers
+
+**Development (local desktop / PyCharm):**
+```bash
+docker-compose --env-file .env up -d
+```
+
+**Production (Portainer or remote Docker):**
+```bash
+docker-compose --env-file .env.production up -d
+```
+
+---
+
+### 📦 4. (Optional) Download a model
+
+You can pull a model into Ollama using:
+
+```bash
+bash setup/download-model.sh mistral
+```
+
+---
+
+### 💬 5. Use AnythingLLM
+
+- Visit [http://localhost:3001](http://localhost:3001) (or your mapped port)
+- Upload PDFs into the `data/` folder
+- Ask questions about the lab content or request CTF challenges!
+
+---
+
+### 🎯 6. Use CTFd
+
+- Visit [http://localhost:8000](http://localhost:8000) (or your mapped port)
+- Log in as admin
+- Use `generate_ctfd_yaml.py` to create YAML challenges
+- Import into CTFd via Admin > Challenges > Import
 
 ---
 
@@ -37,15 +80,17 @@ A self-hosted AI-powered platform to help cybersecurity instructors create and m
 
 ```
 ForgeCTF/
-├── docker-compose.yml        # Main stack for AnythingLLM + Ollama
-├── .env                      # Optional env vars for customization
-├── README.md                 # Setup instructions
-├── setup/                    # Initialization scripts or provisioning
-│   ├── init-data.sh
-│   └── download-model.sh
-├── data/                     # Folder for instructors to drop PDFs
-├── scripts/                  # Optional scripts for CTFd export etc.
-│   └── generate_ctfd_yaml.py
+├── docker-compose.yml               # Main stack (AnythingLLM + Ollama + CTFd)
+├── .env                             # Development environment config
+├── .env.production                  # Production (Portainer-friendly)
+├── .env.example                     # Template env file
+├── README.md                        # Setup instructions
+├── data/                            # PDF docs for ingestion
+├── scripts/
+│   └── generate_ctfd_yaml.py        # Export challenges to CTFd format
+├── setup/
+│   ├── init-data.sh                 # Optional seeding logic
+│   └── download-model.sh            # Pulls model into Ollama
 ```
 
 ---
@@ -53,19 +98,41 @@ ForgeCTF/
 ## 🧠 Use Cases
 
 - Ask questions about lab PDF content
-- Automatically generate CTF challenge ideas
-- Export challenges to CTFd-compatible YAML/JSON
-- Build lab environments with flags using Proxmox + Packer
+- Automatically generate CTF challenge ideas with flags and hints
+- Export challenges as YAML for CTFd
+- Build auto-provisioned lab environments via Proxmox + Packer
 
 ---
 
 ## 🛠 Model Options
 
-Use any model compatible with Ollama. Recommended for speed and accuracy:
+You can use any model compatible with Ollama. Recommended models:
+
 - `mistral`
 - `codellama`
 - `deepseek-coder`
-- `llama3` (for deeper generation)
+- `llama3`
+
+To pull a model:
+```bash
+ollama pull mistral
+```
+
+---
+
+## 🔄 Environment Configs
+
+### `.env` (development)
+Used for local testing and Docker Desktop.
+
+### `.env.production` (production/Portainer)
+Used when deploying to a remote server or in Portainer UI.
+
+You can switch by just running:
+
+```bash
+docker-compose --env-file .env.production up -d
+```
 
 ---
 
@@ -73,7 +140,7 @@ Use any model compatible with Ollama. Recommended for speed and accuracy:
 
 - CLI tool to export ForgeCTF challenges to CTFd
 - Packer template for deploying ForgeCTF as a Proxmox-ready VM
-- Web-based instructor tools for managing labs
+- Instructor UI for managing labs and generating content faster
 
 ---
 
@@ -81,4 +148,4 @@ Use any model compatible with Ollama. Recommended for speed and accuracy:
 
 ForgeCTF helps instructors focus on teaching while automating the content generation, hint creation, and CTF deployment process.
 
-Contributions welcome!
+💡 **Contributions welcome!**

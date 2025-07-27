@@ -2,7 +2,7 @@ services:
   ollama:
     image: ollama/ollama
     ports:
-      - "11434:11434"
+      - "${OLLAMA_PORT}:11434"
     volumes:
       - ollama-data:/root/.ollama
     restart: unless-stopped
@@ -10,17 +10,29 @@ services:
   anythingllm:
     image: mintplexlabs/anythingllm:latest
     ports:
-      - "3001:3001"
+      - "${ANYTHINGLLM_PORT}:3001"
     depends_on:
       - ollama
     environment:
-      - LLM_PROVIDER=ollama
-      - OLLAMA_API=http://ollama:11434
+      - LLM_PROVIDER=${LLM_PROVIDER}
+      - OLLAMA_API=${OLLAMA_API}
+      - STORAGE_DIR=${STORAGE_DIR}
     volumes:
       - anythingllm-data:/app/server/storage
-      - ./data:/app/server/storage/documents  # auto-ingest folder
+      - ./data:/app/server/storage/documents
     restart: unless-stopped
+
+  ctfd:
+    image: ctfd/ctfd
+    ports:
+      - "${CTFD_PORT}:8000"
+    environment:
+      - UPLOAD_FOLDER=${UPLOAD_FOLDER}
+    volumes:
+      - ctfd-data:/var/uploads
+    restart: always
 
 volumes:
   ollama-data:
   anythingllm-data:
+  ctfd-data:
