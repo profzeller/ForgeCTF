@@ -1,0 +1,26 @@
+services:
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+
+  anythingllm:
+    image: mintplexlabs/anythingllm:latest
+    ports:
+      - "3001:3001"
+    depends_on:
+      - ollama
+    environment:
+      - LLM_PROVIDER=ollama
+      - OLLAMA_API=http://ollama:11434
+    volumes:
+      - anythingllm-data:/app/server/storage
+      - ./data:/app/server/storage/documents  # auto-ingest folder
+    restart: unless-stopped
+
+volumes:
+  ollama-data:
+  anythingllm-data:
