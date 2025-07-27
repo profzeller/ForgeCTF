@@ -1,22 +1,39 @@
 services:
   ollama:
     image: ollama/ollama
+    container_name: ollama
     ports:
-      - "${OLLAMA_PORT}:11434"
+      - "${OLLAMA_PORT:-11434}:11434"
     volumes:
       - ollama-data:/root/.ollama
+      - ./setup/ollama-entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
     restart: unless-stopped
 
   anythingllm:
     image: mintplexlabs/anythingllm:latest
+    container_name: anythingllm
     ports:
-      - "${ANYTHINGLLM_PORT}:3001"
+      - "${ANYTHINGLLM_PORT:-3001}:3001"
+    cap_add:
+      - SYS_ADMIN
     depends_on:
       - ollama
     environment:
-      - LLM_PROVIDER=${LLM_PROVIDER}
-      - OLLAMA_API=${OLLAMA_API}
       - STORAGE_DIR=${STORAGE_DIR}
+      - JWT_SECRET=${JWT_SECRET}
+      - LLM_PROVIDER=${LLM_PROVIDER}
+      - OLLAMA_BASE_PATH=${OLLAMA_BASE_PATH}
+      - OLLAMA_MODEL_PREF=${OLLAMA_MODEL_PREF}
+      - OLLAMA_MODEL_TOKEN_LIMIT=${OLLAMA_MODEL_TOKEN_LIMIT}
+      - EMBEDDING_ENGINE=${EMBEDDING_ENGINE}
+      - EMBEDDING_BASE_PATH=${EMBEDDING_BASE_PATH}
+      - EMBEDDING_MODEL_PREF=${EMBEDDING_MODEL_PREF}
+      - EMBEDDING_MODEL_MAX_CHUNK_LENGTH=${EMBEDDING_MODEL_MAX_CHUNK_LENGTH}
+      - VECTOR_DB=${VECTOR_DB}
+      - WHISPER_PROVIDER=${WHISPER_PROVIDER}
+      - TTS_PROVIDER=${TTS_PROVIDER}
+      - PASSWORDMINCHAR=${PASSWORDMINCHAR}
     volumes:
       - anythingllm-data:/app/server/storage
       - ./data:/app/server/storage/documents
@@ -24,8 +41,9 @@ services:
 
   ctfd:
     image: ctfd/ctfd
+    container_name: ctfd
     ports:
-      - "${CTFD_PORT}:8000"
+      - "${CTFD_PORT:-8000}:8000"
     environment:
       - UPLOAD_FOLDER=${UPLOAD_FOLDER}
     volumes:
