@@ -149,3 +149,15 @@ docker-compose --env-file .env.production up -d
 ForgeCTF helps instructors focus on teaching while automating the content generation, hint creation, and CTF deployment process.
 
 💡 **Contributions welcome!**
+
+---
+
+## 📝 License
+
+ForgeCTF is licensed under the **Business Source License 1.1 (BSL)**.
+
+- ✅ Free for non-commercial, educational, and personal use
+- ❌ Commercial use or hosted deployment requires written permission
+- 🔓 Converts to Apache 2.0 on **2028-07-27**
+
+See the [LICENSE](./LICENSE) file for full terms.

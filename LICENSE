@@ -1,0 +1,45 @@
+Business Source License 1.1
+
+Licensor: Jason Zeller
+Licensed Work: ForgeCTF
+License Date: 2025-07-27
+Change Date: 2028-07-27
+Change License: Apache License, Version 2.0
+
+Terms
+
+The Licensed Work is provided under the terms of the Business Source License 1.1 ("BSL", the "License"). The License is published by MariaDB Corporation Ab and can be found at https://mariadb.com/bsl11.
+
+Use Limitation
+
+The Licensed Work may be used freely, modified, and distributed, provided that the usage is **non-commercial**.
+
+You may not:
+
+- Use the Licensed Work, in whole or in part, to offer a hosted or managed service to others (such as SaaS)
+- Rebrand, resell, or sublicense the Licensed Work as a competing or derivative commercial product or platform
+- Integrate the Licensed Work into commercial services without written permission from the Licensor
+
+Change Date
+
+The Change Date is **2028-07-27**, or three years after the License Date.
+
+After the Change Date, the Licensed Work will be provided under the terms of the **Apache License, Version 2.0**.
+
+Additional Use Grant
+
+You may use the Licensed Work for **personal, educational, research, classroom, or instructional use** without restriction, as long as such use is not commercial in nature.
+
+Modifications
+
+You are allowed to modify the Licensed Work and create derivative works, provided they comply with the same Use Limitation.
+
+Trademarks
+
+This License does not grant you any rights to use the Licensor’s name, logo, or trademarks, including "ForgeCTF".
+
+Disclaimer
+
+THE LICENSED WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.
+
+For more details, see the full license text at: https://mariadb.com/bsl11
